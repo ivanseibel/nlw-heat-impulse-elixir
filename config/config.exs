@@ -37,6 +37,13 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Configures the HeatTags Scheduller to generate tags cloud
+config :heat_tags, HeatTags.Scheduler,
+  jobs: [
+    # {"* * * * *", {HeatTags.Tags.Count, :call, []}}
+    {"@daily", {HeatTags.Tags.Count, :call, []}}
+  ]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
